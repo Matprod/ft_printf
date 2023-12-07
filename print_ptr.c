@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_format.c                                     :+:      :+:    :+:   */
+/*   print_ptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 18:36:35 by mvoisin           #+#    #+#             */
-/*   Updated: 2023/12/06 19:06:42 by mvoisin          ###   ########.fr       */
+/*   Updated: 2023/12/07 17:43:56 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 
-int	ft_ptr_len(uintptr_t num)
+int	ptr_len(unsigned long num)
 {
 	int	len;
 
@@ -29,48 +29,52 @@ int	ft_ptr_len(uintptr_t num)
 	return (len);
 }
 
-void	ft_put_ptr(uintptr_t num)
+void	put_ptr(unsigned long ptr)
 {
-	if (num >= 16)
+	if (ptr >= 16)
 	{
-		ft_put_ptr(num / 16);
-		ft_put_ptr(num % 16);
+		put_ptr(ptr / 16);
+		put_ptr(ptr % 16);
 	}
 	else
 	{
-		if (num <= 9)
-			ft_putchar((num + '0'));
+		if (ptr > 9)
+			ft_putchar((ptr - 10 + 'a'));
 		else
-			ft_putchar((num - 10 + 'a'));
+			ft_putchar((ptr + '0'));
 	}
 }
 
-int	ft_print_ptr(unsigned long long ptr)
+int	print_ptr(unsigned long ptr)
 {
-	int	print_length;
+	int	print_len;
 
-	print_length = 0;
-	print_length += write(1, "0x", 2);
+	print_len = 0;
 	if (ptr == 0)
-		print_length += write(1, "0", 1);
-	else
 	{
-		ft_put_ptr(ptr);
-		print_length += ft_ptr_len(ptr);
+		print_len = write(1, "(nil)", 5);
+		return (print_len);
 	}
-	return (print_length);
+	else
+		print_len = write(1, "0x", 2);
+	put_ptr(ptr);
+	print_len += ptr_len(ptr);
+	return (print_len);
 }
 
-int	main()
+/*int	main()
 {
-	int	num = 42;
-	int	*ptr = &num;
+	//int	num = 42;
+	//int	*ptr = &num;
+	int len;
+	int	*ptr = NULL;
 
 	printf("Avec printf : \n%p\n", (void *)ptr);
 
 	unsigned long long ptr_value = (unsigned long long)ptr;
-	printf("Avec ft_print_ptr : \n");
-	ft_print_ptr(ptr_value);
+	printf("Avec print_ptr : \n");
+	len = print_ptr(ptr_value);
+	printf("\nlen = %d",len);
 
-	return (0);
-}
+	return (0); 
+}*/

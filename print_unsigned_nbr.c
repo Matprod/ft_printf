@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_output2.c                                    :+:      :+:    :+:   */
+/*   print_unsigned_nbr.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/06 17:33:13 by mvoisin           #+#    #+#             */
-/*   Updated: 2023/12/06 18:14:30 by mvoisin          ###   ########.fr       */
+/*   Created: 2023/12/07 17:13:26 by mvoisin           #+#    #+#             */
+/*   Updated: 2023/12/07 18:36:51 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,40 +23,9 @@ void	put_unsigned_number(unsigned int n)
 		ft_putchar(n % 10 + '0');
 }
 
-void	putnbr_base(unsigned long n, char *base)
+int	nbr_unsigned_len(unsigned int n)
 {
-	unsigned long	len_base;
-
-	len_base = ft_strlen(base);
-	if (n >= len_base)
-	{
-		putnbr_base(n / len_base, base);
-		n %= len_base;
-	}
-	ft_putchar(base[n % len_base]);
-
-}
-
-unsigned int	nbr_len_base(unsigned long n, char *base)
-{
-	unsigned int	len;
-	unsigned int	len_base;
-
-	len = 0;
-	len_base = ft_strlen(base);
-	if (n == 0)
-		return (1);
-	while (n > 0)
-	{
-		n /= len_base;
-		len++;
-	}
-	return (len);
-}
-
-unsigned int	nbr_len_unsigned(unsigned int n)
-{
-	unsigned int	len;
+	int	len;
 
 	len = 0;
 	if (n == 0)
@@ -64,15 +33,16 @@ unsigned int	nbr_len_unsigned(unsigned int n)
 	while (n > 0)
 	{
 		n /= 10;
-		len ++;
+		len++;
 	}
 	return (len);
 }
 
-int main()
+int	print_unsigned_nbr(unsigned int n)
 {
-	//put_unsigned_number(-250);
-	//putnbr_base(1333,"doRmir");
-	nbr_len_base(1333,"dormir");
-	return(0);
+	int	len;
+
+	put_unsigned_number(n);
+	len = nbr_unsigned_len(n);
+	return (len);
 }

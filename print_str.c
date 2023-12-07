@@ -1,48 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_output.c                                     :+:      :+:    :+:   */
+/*   print_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/06 16:50:11 by mvoisin           #+#    #+#             */
-/*   Updated: 2023/12/07 17:37:06 by mvoisin          ###   ########.fr       */
+/*   Created: 2023/12/07 15:56:23 by mvoisin           #+#    #+#             */
+/*   Updated: 2023/12/07 18:40:56 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putchar(char c)
+int	print_char(char c)
 {
-	write(1, &c, 1);
+	int	len;
+
+	len = write(1, &c, 1);
+	return (len);
 }
 
-int	ft_strlen(char *s)
-{	
-	int	count;
+int	print_str(char *s)
+{
+	int	len;
 
-	count = 0;
-	while (*s++)
+	if (!s)
 	{
-		count++;
+		ft_putstr("(null)");
+		return (6);
 	}
-	return (count);
+	len = write(1, s, ft_strlen(s));
+	return (len);
 }
-
-void	ft_putstr(char *s)
-{
-	write(1, s, ft_strlen(s));
-}
-
-int	print_percent(void)
-{
-	ft_putchar('%');
-	return (1);
-}
-/*int	main()
-{
-	//ft_putnbr(-10000);
-	//printf("%d",nbr_len(0));
-	//ft_putstr("salut");
-	return (0);
-}*/
