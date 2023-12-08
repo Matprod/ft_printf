@@ -6,7 +6,7 @@
 /*   By: mvoisin <mvoisin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:43:00 by mvoisin           #+#    #+#             */
-/*   Updated: 2023/12/07 18:51:55 by mvoisin          ###   ########.fr       */
+/*   Updated: 2023/12/08 11:04:43 by mvoisin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	ft_printf(const char *str, ...)
 	i = 0;
 	print_len = 0;
 	va_start(args, str);
+	if (!str)
+		return (-1);
 	while (str[i])
 	{
 		if (str[i] == '%')
